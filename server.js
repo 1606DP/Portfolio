@@ -2,7 +2,7 @@ const express = require('express');
 require("dotenv").config();
 const app = express();
 const dbConfig = require("./config/dbConfig");
-
+const cors = require("cors");
 const portfolioRoute = require("./routes/portfolioRoute");
 
 app.use(express.json());
