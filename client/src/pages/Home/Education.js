@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 function Education() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-  const { education } = portfolioData;
+  const education = portfolioData?.education || [];
+  const selectedEducation = education[selectedItemIndex] || {};
   return (
     <div>
       <SectionTitle title="Education"/>
@@ -26,13 +27,13 @@ function Education() {
         </div>
         <div className="flex flex-col gap-10">
           <h1 className="text-secondary text-xl">
-            {education[selectedItemIndex].school}
+            {selectedEducation.school || ""}
           </h1>
           <h1 className="text-white text-xl">
-            {education[selectedItemIndex].title}
+            {selectedEducation.title || ""}
           </h1>
           <h1 className="text-tertiary text-xl">
-            {education[selectedItemIndex].description}
+            {selectedEducation.description || ""}
           </h1>
         </div>
       </div>
