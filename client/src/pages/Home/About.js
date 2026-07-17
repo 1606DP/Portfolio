@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 function About() {
    const { loading, portfolioData } = useSelector((state) => state.root);
-  const { about } = portfolioData;
-  const { skills , lottieURL , description1 , description2 } = about;
+  const about = portfolioData?.about || {};
+  const { skills = [], lottieURL = "", description1 = "", description2 = "" } = about;
   return (
 
     <div>
