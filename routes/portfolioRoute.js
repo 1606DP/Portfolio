@@ -196,20 +196,23 @@ router.post("/admin-login", async (req, res) => {
       username: req.body.username,
       password: req.body.password,
     });
-    user.password = "";
-    if (user) {
-      res.status(200).send({
-        data: user,
-        success: true,
-        message: "Login successfully",
-      });
-    } else {
-      res.status(200).send({
-        data: user,
+
+    if (!user) {
+      return res.status(200).send({
+        data: null,
         success: false,
         message: "Invalid username or password",
       });
     }
+
+    const userData = user.toObject();
+    delete userData.password;
+
+    res.status(200).send({
+      data: userData,
+      success: true,
+      message: "Login successfully",
+    });
   } catch (error) {
     res.status(500).send(error);
   }
