@@ -46,5 +46,5 @@
     "postcss": "^8.5.16",
     "tailwindcss": "^3.4.17"
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "https://portfolio-0yo6.onrender.com"
 }
