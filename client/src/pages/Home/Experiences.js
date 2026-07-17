@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function Experiences() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const { portfolioData } = useSelector((state) => state.root);
-  const { experiences } = portfolioData;
+  const experiences = portfolioData?.experiences || [];
 
   return (
     <div>
@@ -30,13 +30,13 @@ function Experiences() {
         </div>
         <div className="flex flex-col gap-10">
           <h1 className="text-secondary text-xl">
-            {experiences[selectedItemIndex].title}
+            {experiences[selectedItemIndex]?.title || ""}
           </h1>
           <h1 className="text-tertiary text-xl">
-            {experiences[selectedItemIndex].company}
+            {experiences[selectedItemIndex]?.company || ""}
           </h1>
           <p className="text-white">
-           {experiences[selectedItemIndex].description}
+           {experiences[selectedItemIndex]?.description || ""}
           </p>
         </div>
       </div>
