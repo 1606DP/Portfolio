@@ -13,22 +13,28 @@ function App() {
 
 const dispatch = useDispatch();
   const getPortfolioData = async () => {
-    try {
-      dispatch(ShowLoading());
-      const response = await axios.get("/api/portfolio/get-portfolio-data");
-      dispatch(SetPortfolioData(response.data));
-      dispatch(ReloadData(false));
-      dispatch(HideLoading());
-    } catch (error) {
-      dispatch(HideLoading());
-    }
-  };
+  try {
+    dispatch(ShowLoading());
 
-  useEffect(() => {
-    if (!portfolioData) {
-      getPortfolioData();
-    }
-  }, [portfolioData]);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/portfolio/get-portfolio-data`
+    );
+
+    console.log("Portfolio API Response:", response.data);
+
+    dispatch(SetPortfolioData(response.data));
+    dispatch(ReloadData(false));
+    dispatch(HideLoading());
+
+  } catch (error) {
+    console.error("Portfolio API Error:", error);
+    dispatch(HideLoading());
+  }
+};
+
+ useEffect(() => {
+  getPortfolioData();
+}, []);
 
   useEffect(()=> {
     if(reloadData){
