@@ -12,6 +12,11 @@ function Login() {
   });
   const dispatch = useDispatch();
   const login = async () => {
+    if (!user.username || !user.password) {
+      message.error("Please enter username and password");
+      return;
+    }
+
     try {
       dispatch(ShowLoading());
       const response = await axios.post("/api/portfolio/admin-login", user);
@@ -21,11 +26,17 @@ function Login() {
         localStorage.setItem("token", JSON.stringify(response.data));
         window.location.href = "/admin";
       } else {
-        message.error(response.data.message);
+        message.error(response.data.message || "Login failed");
       }
     } catch (error) {
-      message.error(error.message);
       dispatch(HideLoading());
+      if (error.response && error.response.data) {
+        message.error(error.response.data.message || error.response.data.error || "Login failed");
+      } else if (error.response) {
+        message.error("Server error: " + error.response.statusText);
+      } else {
+        message.error(error.message || "Connection failed. Please try again.");
+      }
     }
   };
 
